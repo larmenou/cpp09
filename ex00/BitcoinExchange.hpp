@@ -6,7 +6,7 @@
 /*   By: larmenou <larmenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 13:37:11 by larmenou          #+#    #+#             */
-/*   Updated: 2024/02/22 14:41:16 by larmenou         ###   ########.fr       */
+/*   Updated: 2024/02/27 10:28:03 by larmenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,14 @@
 #include <fstream>
 #include <string>
 #include <map>
+#include <sstream>
+#include <ctype.h>
+#include <algorithm>
 
 class BitcoinExchange
 {
 	private:
+		std::map<std::string, double> _data;
 
 	public:
 		BitcoinExchange();
@@ -27,5 +31,9 @@ class BitcoinExchange
 		~BitcoinExchange();
 		BitcoinExchange & operator=(BitcoinExchange const & copy);
 
-		bool isFileOk(std::ifstream & ifs);
+		bool isFileOk(std::ifstream & ifs, char* filename);
+		bool extractData();
+		bool checkDateFormat(std::string date);
+		bool checkValue(std::string value);
+		void findValueInMap(std::string line);
 };
