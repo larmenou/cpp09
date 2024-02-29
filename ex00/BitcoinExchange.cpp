@@ -6,7 +6,7 @@
 /*   By: larmenou <larmenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 13:37:08 by larmenou          #+#    #+#             */
-/*   Updated: 2024/02/27 10:35:19 by larmenou         ###   ########.fr       */
+/*   Updated: 2024/02/27 10:40:52 by larmenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ BitcoinExchange::BitcoinExchange(BitcoinExchange const & copy)
 
 BitcoinExchange & BitcoinExchange::operator=(BitcoinExchange const & copy)
 {
-	(void) copy;
+	_data = copy._data;
 	return (*this);
 }
 
@@ -45,7 +45,7 @@ bool BitcoinExchange::extractData()
 	std::string line;
 	std::string date_str;
 	std::string tmp;
-	double rate;
+	float rate;
 	std::size_t pos = 0;
 	std::stringstream ss;
 	
@@ -67,7 +67,7 @@ bool BitcoinExchange::extractData()
 		ss >> rate;
 
 		if (!ss.fail())
-			_data.insert(std::map<std::string, double>::value_type(date_str, rate));
+			_data.insert(std::map<std::string, float>::value_type(date_str, rate));
 	}
 
 	return (true);
@@ -149,7 +149,7 @@ bool BitcoinExchange::checkDateFormat(std::string date)
 
 bool BitcoinExchange::checkValue(std::string value)
 {
-	double val;
+	float val;
 	std::stringstream ss;
 
 	ss.str(value);
@@ -170,12 +170,12 @@ bool BitcoinExchange::checkValue(std::string value)
 
 void BitcoinExchange::findValueInMap(std::string line)
 {
-	std::map<std::string, double>::iterator itlow;
+	std::map<std::string, float>::iterator itlow;
 	std::string date;
 	std::string nb_bc;
 	std::size_t pos = 0;
 	std::stringstream ss;
-	double amount;
+	float amount;
 
 	pos = line.find('|');
 	if (pos == line.length() || pos == line.length() - 1 || pos == 0)

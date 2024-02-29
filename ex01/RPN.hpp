@@ -6,7 +6,7 @@
 /*   By: larmenou <larmenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 10:57:06 by larmenou          #+#    #+#             */
-/*   Updated: 2024/02/27 14:31:24 by larmenou         ###   ########.fr       */
+/*   Updated: 2024/02/28 08:17:54 by larmenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
+#include <deque>
 #include <algorithm>
 #include <sstream>
 
 class RPN
 {
 	private:
-		std::vector<double> _tab;
+		std::deque<double> _tab;
 
 	public:
 		RPN();

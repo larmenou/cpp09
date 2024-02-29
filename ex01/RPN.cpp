@@ -6,7 +6,7 @@
 /*   By: larmenou <larmenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 10:57:10 by larmenou          #+#    #+#             */
-/*   Updated: 2024/02/27 14:59:41 by larmenou         ###   ########.fr       */
+/*   Updated: 2024/02/28 08:18:53 by larmenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ void RPN::execRPN(std::string argv)
 			first = _tab.back();
 			_tab.pop_back();
 
-			//std::cout << b << " " << a << std::endl;
-
 			if (argv[i] == '+')
 				_tab.push_back(first + second);
 			else if (argv[i] == '-')
@@ -83,5 +81,5 @@ void RPN::execRPN(std::string argv)
 		}
 		i++;
 	}
-	std::cout << _tab[0] << std::endl;
+	std::cout << _tab.back() << std::endl;
 }

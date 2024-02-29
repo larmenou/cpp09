@@ -6,7 +6,7 @@
 /*   By: larmenou <larmenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 13:37:11 by larmenou          #+#    #+#             */
-/*   Updated: 2024/02/27 10:28:03 by larmenou         ###   ########.fr       */
+/*   Updated: 2024/02/27 10:40:36 by larmenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 class BitcoinExchange
 {
 	private:
-		std::map<std::string, double> _data;
+		std::map<std::string, float> _data;
 
 	public:
 		BitcoinExchange();
