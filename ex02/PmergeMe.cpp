@@ -6,7 +6,7 @@
 /*   By: larmenou <larmenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 08:26:31 by larmenou          #+#    #+#             */
-/*   Updated: 2024/02/29 11:20:32 by larmenou         ###   ########.fr       */
+/*   Updated: 2024/03/01 13:39:33 by larmenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,14 @@ void PmergeMe::sortPairVector()
 	
 	for (unsigned int i = 0; i < _vector.size(); i += 2)
 	{
-		if (_vector[i + 1].elem && _vector[i + 1].elem < _vector[i].elem)
+		if (i + 1 < _vector.size() && _vector[i + 1].elem < _vector[i].elem)
 		{
 			tmp = _vector[i].elem;
 			_vector[i].elem = _vector[i + 1].elem;
 			_vector[i + 1].elem = tmp;
 		}
-		_vector[i + 1].index = idx;
+		if (i + 1 < _vector.size())
+			_vector[i + 1].index = idx;
 		_vector[i].index = idx;
 		idx++;
 	}
@@ -455,19 +456,17 @@ bool PmergeMe::isSortedList()
 
 	std::list<t_elem>::iterator it = _list.begin();
 	std::list<t_elem>::iterator next_it = it;
-
+	
 	next_it++;
-
 	while (next_it != _list.end())
 	{
 		if ((*next_it).elem < (*it).elem) 
 		{
 			return false;
 		}
-		++it;
-		++next_it;
+		it++;
+		next_it++;
 	}
-
 	return true;
 }
 
@@ -482,16 +481,14 @@ bool PmergeMe::isSortedVector()
 	std::vector<t_elem>::iterator next_it = it;
 
 	next_it++;
-
 	while (next_it != _vector.end())
 	{
 		if ((*next_it).elem < (*it).elem) 
 		{
 			return false;
 		}
-		++it;
-		++next_it;
+		it++;
+		next_it++;
 	}
-
 	return true;
 }

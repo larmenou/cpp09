@@ -6,7 +6,7 @@
 /*   By: larmenou <larmenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 13:36:55 by larmenou          #+#    #+#             */
-/*   Updated: 2024/02/27 10:30:42 by larmenou         ###   ########.fr       */
+/*   Updated: 2024/03/04 07:20:19 by larmenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@ int main(int ac, char **av)
 
 	if (!be.extractData())
 		return (1);
-	getline(ifs, line);
+		
 	while (getline(ifs, line))
 	{
-		be.findValueInMap(line);
+		if (line.find("date") != std::string::npos)
+			continue ;
+		else
+			be.findValueInMap(line);
 	}
 	return (0);
 }

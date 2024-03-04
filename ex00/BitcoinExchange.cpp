@@ -6,7 +6,7 @@
 /*   By: larmenou <larmenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 13:37:08 by larmenou          #+#    #+#             */
-/*   Updated: 2024/02/27 10:40:52 by larmenou         ###   ########.fr       */
+/*   Updated: 2024/03/04 07:30:49 by larmenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ bool BitcoinExchange::checkDateFormat(std::string date)
 	int month_data;
 	int day_data;
 	
-	if (date[4] && date[7] && date[4] == '-' && date[7] == '-' && date.length() == 10)
+	if (date.length() == 10 && date[4] && date[7] && date[4] == '-' && date[7] == '-')
 	{
 		for (unsigned int i = 0; i < date.length(); i++)
 		{
@@ -94,7 +94,7 @@ bool BitcoinExchange::checkDateFormat(std::string date)
 				continue ;
 			else if (i != 4 && i != 7 && !isdigit(date[i]))
 			{
-				std::cout << "Error: bad input => " << date << std::endl;
+				std::cout << "Error: bad date => " << date << std::endl;
 				return (false);
 			}
 		}
@@ -141,7 +141,7 @@ bool BitcoinExchange::checkDateFormat(std::string date)
 		|| (month % 2 == 1 && day > 31)
 		|| (month % 2 == 0 && month != 8 && day > 30))
 	{
-		std::cout << "Error: bad input => " << date << std::endl;
+		std::cout << "Error: bad date => " << date << std::endl;
 		return (false);
 	}
 	return (true);
@@ -157,12 +157,12 @@ bool BitcoinExchange::checkValue(std::string value)
 
 	if (val < 0)
 	{
-		std::cout << "Error: not a positive number." << std::endl;
+		std::cout << "Error: not a positive number => " << val << std::endl;
 		return (false);
 	}
 	else if (val > 1000)
 	{
-		std::cout << "Error: too large number." << std::endl;
+		std::cout << "Error: too large number => " << val << std::endl;
 		return (false);
 	}
 	return (true);
@@ -185,16 +185,35 @@ void BitcoinExchange::findValueInMap(std::string line)
 	}
 
 	date = line.substr(0, pos);
-	date.erase(remove(date.begin(), date.end(), ' '), date.end());
-
-	if (!checkDateFormat(date))
+	if (date[date.length() - 1] == ' ')
+	{
+		date.resize(date.length() - 1);
+		if (!checkDateFormat(date))
+			return ;
+	}
+	else
+	{
+		std::cout << "Error: bad date => " << line << std::endl;
 		return ;
+	}
 	
 	nb_bc = line.substr(pos + 1);
-	nb_bc.erase(remove(nb_bc.begin(), nb_bc.end(), ' '), nb_bc.end());
-
-	if (!checkValue(nb_bc))
+	if (nb_bc[0] == ' ')
+	{
+		nb_bc = nb_bc.substr(1);
+		for(unsigned int i = 0; i < nb_bc.length(); i++)
+		{
+			if (nb_bc[0] == '-' || nb_bc[i] == '.')
+				continue ;
+			else if (!isdigit(nb_bc[i]))
+			{
+				std::cout << "Error: bad number format => " << nb_bc << std::endl;
+				return ;
+			}
+		}
+		if (!checkValue(nb_bc))
 		return ;
+	}
 	
 	ss.str(nb_bc);
 	ss >> amount;

@@ -6,7 +6,7 @@
 /*   By: larmenou <larmenou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 10:57:10 by larmenou          #+#    #+#             */
-/*   Updated: 2024/02/28 08:18:53 by larmenou         ###   ########.fr       */
+/*   Updated: 2024/03/04 07:33:59 by larmenou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,41 @@ void RPN::execRPN(std::string argv)
 	{
 		if (isdigit(argv[i]))
 		{
-			_tab.push_back(argv[i] - 48);
+			_tab.push(argv[i] - 48);
 		}
 		else
 		{
-			second = _tab.back();
-			_tab.pop_back();
-			first = _tab.back();
-			_tab.pop_back();
+			if (!_tab.empty())
+			{
+				second = _tab.top();
+				_tab.pop();
+				if (!_tab.empty())
+				{
+					first = _tab.top();
+					_tab.pop();
+				}
+				else
+				{
+					std::cout << "Error" << std::endl;
+					return ;
+				}
+			}
+			else
+			{
+				std::cout << "Error" << std::endl;
+				return ;
+			}
 
 			if (argv[i] == '+')
-				_tab.push_back(first + second);
+				_tab.push(first + second);
 			else if (argv[i] == '-')
-				_tab.push_back(first - second);
+				_tab.push(first - second);
 			else if (argv[i] == '*')
-				_tab.push_back(first * second);
+				_tab.push(first * second);
 			else if (argv[i] == '/')
-				_tab.push_back(first / second);
+				_tab.push(first / second);
 		}
 		i++;
 	}
-	std::cout << _tab.back() << std::endl;
+	std::cout << _tab.top() << std::endl;
 }
